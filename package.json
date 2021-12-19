@@ -22,8 +22,14 @@
         "@inertiajs/inertia": "^0.10.1",
         "@inertiajs/inertia-vue": "^0.7.2",
         "@inertiajs/inertia-vue3": "^0.5.2",
+        "bootstrap": "^5.1.3",
+        "datatables.net-dt": "^1.11.3",
+        "jquery": "^3.6.0",
         "vee-validate": "^4.5.7",
         "vform": "^2.1.2",
-        "vue": "^3.2.24"
+        "vue": "^3.2.24",
+        "vue-form-wizard": "^0.8.4",
+        "vue-step-wizard": "^0.1.17",
+        "vuejs-datatable": "^2.0.0-alpha.7"
     }
 }

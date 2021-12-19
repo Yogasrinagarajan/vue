@@ -19,5 +19,8 @@ use App\Http\controllers\ExampleController;
 
 // Route::get('/form', [ExampleController::class,'index'])->name('form');
 // Route::post('/add',[ExampleController::class,'store']);
-Route::resource('/form',ExampleController::class);
+Route::resource('form',ExampleController::class);
 // Route::get('add',[ExampleController::class,'add']);
+Route::get('formwizard',function(){
+	return Inertia::render('formwizard');
+});

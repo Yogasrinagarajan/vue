@@ -2,7 +2,7 @@
     <div class="container mx-5">
        <center><h2 class="my-5">Form</h2></center>
         <p id="text" style="color:green; margin-left:100px;"></p>
-          <a v-bind:href="'/form'" class="btn btn-primary">Back</a>
+       <button @click="back()" class="btn btn-primary">Back</button>
         <center>
 
         <form  class="form"  method="POST" name="myform" id="myform" @submit.prevent='add'>
@@ -75,11 +75,17 @@
                         console.log(response);
                         
                     }).catch(err=>{
-                      console.log("error",err.responce)
+                      //console.log("error",err.responce)
                     })
                     this.form.post('/form')
         .then(({ data }) => { console.log(data) })
-            }
+            },
+            back(){
+      axios.get("/form").then(res=>
+        {
+          window.location="/form";
+        });
+    },
         }
 
     }

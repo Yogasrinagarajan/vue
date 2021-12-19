@@ -15,8 +15,9 @@ class ExampleController extends Controller
     public function index()
     {
         //
-        $forms=vueform::all();
+        $forms=vueform::where('active_status','1')->get();
         return Inertia::render('viewform',['forms'=> $forms]);
+
     }
 
     /**
@@ -27,7 +28,7 @@ class ExampleController extends Controller
     public function create()
     {
         //
-        return Inertia::render('examplepage');
+        return Inertia::render('exampleTwo');
     }
 
     /**
@@ -41,19 +42,24 @@ class ExampleController extends Controller
         //
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'course'=>'required',
             'gender'=>'required',
         ]);
 
-        $form=new vueform();
-        $form->name=$request->name;
-         $form->email=$request->email;
-          $form->course=$request->course;
-           $form->gender=$request->gender;
-           $form->save();
-        return response()->json([
-            'message'=>'inserted']);
+        $form=vueform::create(
+            $request->all()
+        );
+       return Inertia::render('exampleTwo',['msg'=>'Inserted Successfully']);
+
+        // $form=new vueform();
+        // $form->name=$request->name;
+        // $form->email=$request->email;
+        // $form->course=$request->course;
+        // $form->gender=$request->gender;
+        // $form->save();
+        // return response()->json([
+        //     'message'=>'inserted']);
     }
 
     /**
@@ -76,6 +82,9 @@ class ExampleController extends Controller
     public function edit($id)
     {
         //
+        $data=vueform::find($id);
+        return Inertia::render('editpage',['data'=>$data]);
+
     }
 
     /**
@@ -88,6 +97,14 @@ class ExampleController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $data=vueform::where('id',$id)->first();
+        $data->name=$request->name;
+        $data->email=$request->email;
+        $data->course=$request->course;
+        $data->gender=$request->gender;
+        $data->save();
+        return Inertia::render('editpage',['data'=>$data,'msg'=>'Updated Successfully']);
+       // return redirect()->back()->with('msg','Updated Successfully');
     }
 
     /**
@@ -99,10 +116,14 @@ class ExampleController extends Controller
     public function destroy($id)
     {
         //
-    }
+        $data=vueform::find($id);
+        $data->active_status="0";
+        $data->delete_status="1";
+        $data->save();
+        // $data->delete();
+        $forms=vueform::where('active_status','1')->get();
+        return Inertia::render('viewform',['forms'=> $forms,'msg'=>'Deleted Successfully']);  
 
-    public function add(){
+     }
 
-        return Inertia::render('exampleThree');
-    }
 }
